@@ -1,0 +1,5 @@
+include:
+  - _redirects
+
+# Disable processing of Jekyll themes
+safe: true
