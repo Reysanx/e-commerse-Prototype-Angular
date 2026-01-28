@@ -1,0 +1,136 @@
+<div class="min-h-[80vh] flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md">
+        <!-- Card Container -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">
+            <!-- Logo & Title -->
+            <div class="text-center mb-8">
+                <div class="gradient-primary rounded-lg p-3 w-14 h-14 mx-auto mb-4 flex items-center justify-center">
+                    <lucide-icon [img]="UserIcon" class="w-7 h-7 text-white"></lucide-icon>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                    {{ mode() === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta' }}
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400">
+                    {{ mode() === 'login' ? 'Bienvenido de nuevo' : 'Únete a nuestra comunidad' }}
+                </p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex gap-2 mb-6 p-1 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                <button (click)="switchMode('login')" [class.bg-white]="mode() === 'login'"
+                    [class.dark:bg-gray-800]="mode() === 'login'" [class.text-gray-900]="mode() === 'login'"
+                    [class.dark:text-white]="mode() === 'login'" [class.shadow-sm]="mode() === 'login'"
+                    class="flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all text-gray-600 dark:text-gray-400">
+                    Iniciar Sesión
+                </button>
+                <button (click)="switchMode('register')" [class.bg-white]="mode() === 'register'"
+                    [class.dark:bg-gray-800]="mode() === 'register'" [class.text-gray-900]="mode() === 'register'"
+                    [class.dark:text-white]="mode() === 'register'" [class.shadow-sm]="mode() === 'register'"
+                    class="flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all text-gray-600 dark:text-gray-400">
+                    Registrarse
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            @if (mode() === 'login') {
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Correo Electrónico
+                    </label>
+                    <div class="relative">
+                        <lucide-icon [img]="MailIcon"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></lucide-icon>
+                        <input type="email" formControlName="email" placeholder="tu@email.com"
+                            class="w-full pl-16 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Contraseña
+                    </label>
+                    <div class="relative">
+                        <lucide-icon [img]="LockIcon"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></lucide-icon>
+                        <input type="password" formControlName="password" placeholder="••••••••"
+                            class="w-full pl-16 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all" />
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2">
+                    Iniciar Sesión
+                    <lucide-icon [img]="ArrowRightIcon" class="w-5 h-5"></lucide-icon>
+                </button>
+            </form>
+            }
+
+            <!-- Register Form -->
+            @if (mode() === 'register') {
+            <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Nombre Completo
+                    </label>
+                    <div class="relative">
+                        <lucide-icon [img]="UserIcon"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></lucide-icon>
+                        <input type="text" formControlName="name" placeholder="Juan Pérez"
+                            class="w-full pl-16 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Correo Electrónico
+                    </label>
+                    <div class="relative">
+                        <lucide-icon [img]="MailIcon"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></lucide-icon>
+                        <input type="email" formControlName="email" placeholder="tu@email.com"
+                            class="w-full pl-16 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Contraseña
+                    </label>
+                    <div class="relative">
+                        <lucide-icon [img]="LockIcon"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></lucide-icon>
+                        <input type="password" formControlName="password" placeholder="••••••••"
+                            class="w-full pl-16 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Confirmar Contraseña
+                    </label>
+                    <div class="relative">
+                        <lucide-icon [img]="LockIcon"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></lucide-icon>
+                        <input type="password" formControlName="confirmPassword" placeholder="••••••••"
+                            class="w-full pl-16 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all" />
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2">
+                    Crear Cuenta
+                    <lucide-icon [img]="ArrowRightIcon" class="w-5 h-5"></lucide-icon>
+                </button>
+            </form>
+            }
+
+            <div class="mt-6 text-center">
+                <a routerLink="/"
+                    class="text-sm text-gray-600 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+                    Volver a la tienda
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

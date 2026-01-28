@@ -1,0 +1,64 @@
+<div class="group relative overflow-hidden rounded-lg border border-border bg-card text-card-foreground shadow-sm hover:border-primary/50 transition-all duration-300">
+  <!-- Badges -->
+  @if (isNew || discount) {
+    <div class="absolute top-2 left-2 z-10 flex flex-col gap-1">
+      @if (isNew) {
+        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-accent text-accent-foreground">
+          Nuevo
+        </span>
+      }
+      @if (discount) {
+        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold gradient-primary text-white">
+          {{ discount }}% OFF
+        </span>
+      }
+    </div>
+  }
+
+  <!-- Wishlist Button -->
+  <button
+    class="absolute top-2 right-2 z-10 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 w-9 opacity-0 group-hover:opacity-100 transition-opacity"
+  >
+    <lucide-icon [img]="HeartIcon" class="h-4 w-4"></lucide-icon>
+  </button>
+
+  <!-- Product Image -->
+  <a [routerLink]="['/product', id]">
+    <div class="aspect-square overflow-hidden bg-muted">
+      <img
+        [src]="image"
+        [alt]="name"
+        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+      />
+    </div>
+  </a>
+
+  <!-- Card Content -->
+  <div class="p-4">
+    <p class="text-xs text-muted-foreground mb-1">{{ category }}</p>
+    <a [routerLink]="['/product', id]">
+      <h3 class="font-semibold line-clamp-2 hover:text-primary transition-colors">
+        {{ name }}
+      </h3>
+    </a>
+    <div class="mt-2 flex items-baseline gap-2">
+      <span class="text-2xl font-bold text-primary">{{ price }}€</span>
+      @if (originalPrice) {
+        <span class="text-sm text-muted-foreground line-through">
+          {{ originalPrice }}€
+        </span>
+      }
+    </div>
+  </div>
+
+  <!-- Card Footer -->
+  <div class="p-4 pt-0">
+    <button
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 gradient-primary text-primary-foreground hover:opacity-90 h-9 px-4 py-2 w-full"
+      (click)="handleAddToCart($event)"
+    >
+      <lucide-icon [img]="ShoppingCartIcon" class="h-4 w-4 mr-2"></lucide-icon>
+      Añadir al carrito
+    </button>
+  </div>
+</div>

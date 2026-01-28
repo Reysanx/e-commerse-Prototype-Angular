@@ -1,0 +1,128 @@
+<div class="space-y-16 pb-16">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-gray-900 text-white">
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-600/20 to-indigo-600/20 z-0"></div>
+        <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-900/40 via-gray-900/0 to-gray-900/0 z-0">
+        </div>
+
+        <div class="container mx-auto px-4 py-24 md:py-32 relative z-10">
+            <div class="max-w-3xl space-y-8 animate-fade-in-up">
+                <h1
+                    class="text-5xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-pink-400 to-indigo-400">
+                    Tecnología del Futuro, <br />Hoy en tus Manos
+                </h1>
+                <p class="text-xl text-gray-300 max-w-2xl leading-relaxed">
+                    Descubre nuestra selección premium de gadgets, componentes y accesorios.
+                    Calidad garantizada y envíos express a todo el país.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a routerLink="/category/todos"
+                        class="px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-violet-600/25 flex items-center gap-2">
+                        Ver Productos
+                        <lucide-icon [img]="ArrowRightIcon" class="w-5 h-5"></lucide-icon>
+                    </a>
+                    <a routerLink="/category/ofertas"
+                        class="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white border border-gray-700 font-medium rounded-full transition-all duration-300 hover:shadow-lg">
+                        Ofertas Especiales
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Shipping Card -->
+            <div
+                class="p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow group">
+                <div
+                    class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <lucide-icon [img]="TruckIcon" class="w-6 h-6 text-blue-600 dark:text-blue-400"></lucide-icon>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Envío Gratuito</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    En todos los pedidos superiores a 50€. Entrega segura y garantizada.
+                </p>
+            </div>
+
+            <!-- Warranty Card -->
+            <div
+                class="p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow group">
+                <div
+                    class="w-12 h-12 bg-violet-100 dark:bg-violet-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <lucide-icon [img]="ShieldIcon" class="w-6 h-6 text-violet-600 dark:text-violet-400"></lucide-icon>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Garantía Extendida</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    2 años de garantía en todos nuestros productos tecnológicos.
+                </p>
+            </div>
+
+            <!-- Fast Delivery Card -->
+            <div
+                class="p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow group">
+                <div
+                    class="w-12 h-12 bg-pink-100 dark:bg-pink-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <lucide-icon [img]="ClockIcon" class="w-6 h-6 text-pink-600 dark:text-pink-400"></lucide-icon>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Entrega Rápida</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Recibe tu pedido en 24/48h. Seguimiento en tiempo real.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="container mx-auto px-4">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Novedades</h2>
+                <p class="text-gray-600 dark:text-gray-400">Lo último en tecnología y gadgets</p>
+            </div>
+            <a routerLink="/category/todos"
+                class="text-violet-600 hover:text-violet-700 font-medium flex items-center gap-1 group">
+                Ver todo
+                <lucide-icon [img]="ArrowRightIcon"
+                    class="w-4 h-4 group-hover:translate-x-1 transition-transform"></lucide-icon>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @if (featuredProducts$ | async; as products) {
+            @for (product of products; track product.id) {
+            <app-product-card [id]="product.id" [name]="product.name" [price]="product.price" [image]="product.image"
+                [category]="product.category" [isNew]="product.isNew" [discount]="product.discount" />
+            }
+            }
+        </div>
+    </section>
+
+    <!-- Discount Products -->
+    <section class="container mx-auto px-4">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Ofertas Flash</h2>
+                <p class="text-gray-600 dark:text-gray-400">Descuentos increíbles por tiempo limitado</p>
+            </div>
+            <a routerLink="/category/ofertas"
+                class="text-violet-600 hover:text-violet-700 font-medium flex items-center gap-1 group">
+                Ver todo
+                <lucide-icon [img]="ArrowRightIcon"
+                    class="w-4 h-4 group-hover:translate-x-1 transition-transform"></lucide-icon>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @if (discountProducts$ | async; as products) {
+            @for (product of products; track product.id) {
+            <app-product-card [id]="product.id" [name]="product.name" [price]="product.price" [image]="product.image"
+                [category]="product.category" [isNew]="product.isNew" [discount]="product.discount"
+                [originalPrice]="product.originalPrice" />
+            }
+            }
+        </div>
+    </section>
+</div>

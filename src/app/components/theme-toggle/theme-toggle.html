@@ -1,0 +1,11 @@
+<button
+  class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 w-9"
+  (click)="toggleTheme()"
+  aria-label="Cambiar tema"
+>
+  @if (themeService.theme() === 'dark') {
+    <lucide-icon [img]="SunIcon" class="h-5 w-5"></lucide-icon>
+  } @else {
+    <lucide-icon [img]="MoonIcon" class="h-5 w-5"></lucide-icon>
+  }
+</button>

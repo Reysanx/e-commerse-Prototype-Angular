@@ -1,0 +1,124 @@
+<nav class="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+  <div class="container mx-auto px-4">
+    <!-- Main Nav Bar -->
+    <div class="flex h-16 items-center justify-between gap-4">
+      <!-- Logo -->
+      <a routerLink="/" class="flex items-center gap-2">
+        <div class="gradient-primary rounded-lg p-2">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="text-primary-foreground"
+          >
+            <path
+              d="M12 2L2 7L12 12L22 7L12 2Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M2 17L12 22L22 17"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M2 12L12 17L22 12"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <span class="text-xl font-bold">TechUniverse</span>
+      </a>
+
+      <!-- Search Bar (hidden on mobile) -->
+      <form (ngSubmit)="handleSearch($event)" class="hidden md:flex flex-1 max-w-xl">
+        <div class="relative w-full">
+          <lucide-icon
+            [img]="SearchIcon"
+            class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+          ></lucide-icon>
+          <input
+            type="search"
+            placeholder="Buscar productos..."
+            [(ngModel)]="searchQuery"
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 pl-10 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          />
+        </div>
+      </form>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-1">
+        <!-- Theme Toggle -->
+        <app-theme-toggle></app-theme-toggle>
+
+        <!-- User/Auth Button -->
+        <button
+          (click)="navigateTo('/auth')"
+          class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 w-9"
+        >
+          <lucide-icon [img]="UserIcon" class="h-5 w-5"></lucide-icon>
+        </button>
+
+        <!-- Cart Button with Badge -->
+        <button
+          (click)="navigateTo('/cart')"
+          class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 w-9 relative"
+        >
+          <lucide-icon [img]="ShoppingCartIcon" class="h-5 w-5"></lucide-icon>
+          @if (cartService.totalItems() > 0) {
+            <span class="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-semibold">
+              {{ cartService.totalItems() > 99 ? '99+' : cartService.totalItems() }}
+            </span>
+          }
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Navigation (hidden on mobile) -->
+    <div class="hidden md:flex items-center gap-4 py-3 border-t border-border/50">
+      <!-- Category Dropdown -->
+      <div class="relative">
+        <button
+          (click)="toggleCategoryDropdown()"
+          (blur)="closeCategoryDropdown()"
+          class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 px-3"
+        >
+          <lucide-icon [img]="MenuIcon" class="h-4 w-4 mr-2"></lucide-icon>
+          Categorías
+        </button>
+
+        @if (showCategoryDropdown) {
+          <div class="absolute top-full left-0 mt-2 w-56 rounded-md border border-border bg-card shadow-md z-[100]">
+            @for (category of categories; track category) {
+              <button
+                (click)="navigateToCategory(category)"
+                class="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground w-full text-left"
+              >
+                {{ category }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Category Links (first 5) -->
+      @for (category of categories.slice(0, 5); track category) {
+        <a
+          [routerLink]="['/category', category.toLowerCase().replace(/\s+/g, '-')]"
+          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          {{ category }}
+        </a>
+      }
+    </div>
+  </div>
+</nav>
